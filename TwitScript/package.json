@@ -1,0 +1,27 @@
+{
+  "name": "twitscript",
+  "version": "1.0.4",
+  "description": "Bot for twitter",
+  "main": "app.js",
+  "dependencies": {
+    "fs": "^0.0.2",
+    "string": "^3.3.1",
+    "twitter": "^1.2.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/AntonyCanut/TwitScript.git"
+  },
+  "keywords": [
+    "bot",
+    "twitter",
+    "nodejs",
+    "javascript"
+  ],
+  "author": "Antony Canut",
+  "license": "ISC"
+}
