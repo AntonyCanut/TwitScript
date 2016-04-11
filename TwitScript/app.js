@@ -36,9 +36,13 @@ function containSafeWord(tweet) {
         s(tweet.text).toLowerCase().contains('orgasm') ||
         s(tweet.text).toLowerCase().contains('penetration') ||
         s(tweet.text).toLowerCase().contains('chatte') ||
+        s(tweet.text).toLowerCase().contains('@microsoft') ||
+        s(tweet.text).toLowerCase().contains('door') ||
         s(tweet.text).toLowerCase().contains('mail') ||
         s(tweet.text).toLowerCase().contains('pipe') ||
         s(tweet.text).toLowerCase().contains('vagin') ||
+        s(tweet.text).toLowerCase().contains('racist') ||
+        s(tweet.text).toLowerCase().contains('glass') ||
         s(tweet.text).toLowerCase().contains('poop') ||
         s(tweet.text).toLowerCase().contains('putain') ||
         s(tweet.text).toLowerCase().contains('free') ||
@@ -111,20 +115,24 @@ function likeTweets(tweet) {
 };
 
 function retweet(tweet) {
-    if (s(tweet.text).toLowerCase().contains('windows') ||
-        s(tweet.text).toLowerCase().contains('xamarin') ||
-        s(tweet.text).toLowerCase().contains('android') ||
-        s(tweet.text).toLowerCase().contains('iphone') ||
-        s(tweet.text).toLowerCase().contains('ios') ||
-        s(tweet.text).toLowerCase().contains('csharp') ||
-        s(tweet.text).toLowerCase().contains('microsoft') ||
-        s(tweet.text).toLowerCase().contains('google') ||
-        s(tweet.text).toLowerCase().contains('apple') ||
-        s(tweet.text).toLowerCase().contains('java') ||
-        s(tweet.text).toLowerCase().contains('swift') ||
-        s(tweet.text).toLowerCase().contains('emulator') ||
-        s(tweet.text).toLowerCase().contains('uwp') ||
-        s(tweet.text).toLowerCase().contains('azure')) {
+    if (s(tweet.text).toLowerCase().contains('#windows') ||
+        s(tweet.text).toLowerCase().contains('#xamarin') ||
+        s(tweet.text).toLowerCase().contains('#android') ||
+        s(tweet.text).toLowerCase().contains('#iphone') ||
+        s(tweet.text).toLowerCase().contains('#ios') ||
+        s(tweet.text).toLowerCase().contains('#csharp') ||
+        s(tweet.text).toLowerCase().contains('#reactjs') ||
+        s(tweet.text).toLowerCase().contains('#microsoft') ||
+        s(tweet.text).toLowerCase().contains('#google') ||
+        s(tweet.text).toLowerCase().contains('#apple') ||
+        s(tweet.text).toLowerCase().contains('#java') ||
+        s(tweet.text).toLowerCase().contains('#cordova') ||
+        s(tweet.text).toLowerCase().contains('#codenameone') ||
+        s(tweet.text).toLowerCase().contains('#appcelerator') ||
+        s(tweet.text).toLowerCase().contains('#swift') ||
+        s(tweet.text).toLowerCase().contains('#emulator') ||
+        s(tweet.text).toLowerCase().contains('#uwp') ||
+        s(tweet.text).toLowerCase().contains('#azure')) {
         if (!containSafeWord(tweet)) {
             var myDate = new Date();
 
@@ -152,19 +160,24 @@ function retweet_enable() {
 
 // Streams
 // Retweet popular by id, Antony Canut (me) - Jonathan Antoine - TheVerge - Cyril Cathala - Rudy Huyn - David Catuhe - Julien Corioland
-// 
+//
 // Make id here : http://gettwitterid.com/
 client.stream('statuses/filter', {
     follow: '563290517,' + // Antony Canut
-	    ' 159495647, ' + // Jonathan Antoine
-	    '21224422, ' + // TheVerge
-	    '314451829, ' + // Cyril Cathala
-	    '108743439, ' + // Rudy Huyn
-	    '97252444, ' + // David Catuhe
-	    '16837338, ' + // Julien Corioland
-	    '300680960, ' + // Infinite Square
-	    '543524058' + // Soat Group
-        '74286565' // Microsoft
+    ' 159495647, ' + // Jonathan Antoine
+    '21224422, ' + // TheVerge
+    '299659914,' + // Xamarin
+    '2750084700,' + // XamarinUniversity
+    '314451829, ' + // Cyril Cathala
+    '108743439, ' + // Rudy Huyn
+    '186907331,' + // Francois Raminosona
+    '92143356,' + // Etienne Margraff
+    '97252444, ' + // David Catuhe
+    '15056288,' + // David Poulin
+    '16837338, ' + // Julien Corioland
+    '300680960, ' + // Infinite Square
+    '543524058,' + // Soat Group
+    '74286565' // Microsoft
 }, function (stream) {
     stream.on('data', function (tweet) {
         retweet(tweet);
@@ -177,7 +190,7 @@ client.stream('statuses/filter', {
 
 // Like and retweet by popular word
 client.stream('statuses/filter', {
-    track: 'Windows, Windows Phone, Xamarin, UWP, Microsoft, Azure',
+    track: '#Windows, #WindowsPhone, #Xamarin, #UWP, #Microsoft, #Azure',
     language: 'en, fr'
 }, function (stream) {
     stream.on('data', function (tweet) {
