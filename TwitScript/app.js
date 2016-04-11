@@ -18,6 +18,8 @@ var minutes_like = 3;
 var minutes_retweet = 180;
 var likable = true;
 var retweetable = true;
+var track = fs.readFileSync('trackwords.txt', 'utf8');
+track = s(track).replaceAll('\r\n', ' ').s;
 
 // Functions
 function containSafeWord(tweet) {
@@ -32,6 +34,20 @@ function containSafeWord(tweet) {
             isNotSafe = true;
     });
     return isNotSafe;
+}
+
+function containTrackWord(tweet) {
+    var txt = fs.readFileSync('trackwords.txt', 'utf8');
+    var tab = txt.split(',\r\n').map(function (val) {
+        return val;
+    });
+    var isTrack = false;
+
+    tab.forEach(function(item){
+        if (s(item).toLowerCase().contains(s(tweet.text).toLowerCase()))
+            isTrack = true;
+    });
+    return isTrack;
 }
 
 function likeTweets(tweet) {
@@ -70,26 +86,8 @@ function likeTweets(tweet) {
         }
     }
 }
-
 function retweet(tweet) {
-    if (s(tweet.text).toLowerCase().contains('#windows') ||
-        s(tweet.text).toLowerCase().contains('#xamarin') ||
-        s(tweet.text).toLowerCase().contains('#android') ||
-        s(tweet.text).toLowerCase().contains('#iphone') ||
-        s(tweet.text).toLowerCase().contains('#ios') ||
-        s(tweet.text).toLowerCase().contains('#csharp') ||
-        s(tweet.text).toLowerCase().contains('#reactjs') ||
-        s(tweet.text).toLowerCase().contains('#microsoft') ||
-        s(tweet.text).toLowerCase().contains('#google') ||
-        s(tweet.text).toLowerCase().contains('#apple') ||
-        s(tweet.text).toLowerCase().contains('#java') ||
-        s(tweet.text).toLowerCase().contains('#cordova') ||
-        s(tweet.text).toLowerCase().contains('#codenameone') ||
-        s(tweet.text).toLowerCase().contains('#appcelerator') ||
-        s(tweet.text).toLowerCase().contains('#swift') ||
-        s(tweet.text).toLowerCase().contains('#emulator') ||
-        s(tweet.text).toLowerCase().contains('#uwp') ||
-        s(tweet.text).toLowerCase().contains('#azure')) {
+    if (containTrackWord(tweet)) {
         if (!containSafeWord(tweet)) {
             var myDate = new Date();
 
@@ -109,7 +107,6 @@ function retweet(tweet) {
 function like_enable() {
     likable = true;
 }
-
 function retweet_enable() {
     retweetable = true;
 }
@@ -146,7 +143,7 @@ client.stream('statuses/filter', {
 
 // Like and retweet by popular word
 client.stream('statuses/filter', {
-    track: '#Windows, #WindowsPhone, #Xamarin, #UWP, #Microsoft, #Azure',
+    track: track,
     language: 'en, fr'
 }, function (stream) {
     stream.on('data', function (tweet) {
