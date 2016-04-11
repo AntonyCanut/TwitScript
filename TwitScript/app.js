@@ -6,10 +6,10 @@ var fs = require('fs');
 
 // new Object Twitter with login-user
 var client = new Twitter({
-    consumer_key: 'todo',
-    consumer_secret: 'todo',
-    access_token_key: 'todo',
-    access_token_secret: 'todo'
+    consumer_key: 'Pokf8WkctKSu8ddVoU8SOhOHA',
+    consumer_secret: '8lfug4PyQsQCVzPieaGTwLXMZgyNMzpaUE5plQBJs8rZttWeRq',
+    access_token_key: '563290517-sZCByzBU64kTyWex3QKZJ54KwFOVQO5QMuYr5bY5',
+    access_token_secret: 'Qq6yFF9eFub6QAlNPi4VpXoy4CTcrwFXet0c0q4U8QJK4'
 });
 
 
@@ -132,7 +132,9 @@ client.stream('statuses/filter', {
 }, function (stream) {
     console.log('Démarrage du stream sur Personnes.');
     stream.on('data', function (tweet) {
-        retweet(tweet);
+        if (s(trackAccount).toLowerCase().contains(tweet.user.id_str)) {
+            retweet(tweet);
+        }
     });
 
     stream.on('error', function (error) {
