@@ -2,6 +2,7 @@
 var Twitter = require('./node_modules/twitter');
 var s = require('string');
 var exec = require('child_process').exec;
+var fs = require('fs');
 
 // new Object Twitter with login-user
 var client = new Twitter({
@@ -20,61 +21,17 @@ var retweetable = true;
 
 // Functions
 function containSafeWord(tweet) {
-    if ((s(tweet.text).toLowerCase().contains('teen') ||
-        s(tweet.text).toLowerCase().contains('sexy') ||
-        s(tweet.text).toLowerCase().contains('pussy') ||
-        s(tweet.text).toLowerCase().contains('sex') ||
-        s(tweet.text).toLowerCase().contains('milf') ||
-        s(tweet.text).toLowerCase().contains('cock') ||
-        s(tweet.text).toLowerCase().contains('sexe') ||
-        s(tweet.text).toLowerCase().contains('bite') ||
-        s(tweet.text).toLowerCase().contains('threesome') ||
-        s(tweet.text).toLowerCase().contains('blowjob') ||
-        s(tweet.text).toLowerCase().contains('anal') ||
-        s(tweet.text).toLowerCase().contains('clitoris') ||
-        s(tweet.text).toLowerCase().contains('boob') ||
-        s(tweet.text).toLowerCase().contains('orgasm') ||
-        s(tweet.text).toLowerCase().contains('penetration') ||
-        s(tweet.text).toLowerCase().contains('chatte') ||
-        s(tweet.text).toLowerCase().contains('@microsoft') ||
-        s(tweet.text).toLowerCase().contains('door') ||
-        s(tweet.text).toLowerCase().contains('mail') ||
-        s(tweet.text).toLowerCase().contains('pipe') ||
-        s(tweet.text).toLowerCase().contains('vagin') ||
-        s(tweet.text).toLowerCase().contains('racist') ||
-        s(tweet.text).toLowerCase().contains('glass') ||
-        s(tweet.text).toLowerCase().contains('poop') ||
-        s(tweet.text).toLowerCase().contains('putain') ||
-        s(tweet.text).toLowerCase().contains('free') ||
-        s(tweet.text).toLowerCase().contains('pute') ||
-        s(tweet.text).toLowerCase().contains('connard') ||
-        s(tweet.text).toLowerCase().contains('rudyhuyn') ||
-        s(tweet.text).toLowerCase().contains('pd') ||
-        s(tweet.text).toLowerCase().contains('encule') ||
-        s(tweet.text).toLowerCase().contains('piece') ||
-        s(tweet.text).toLowerCase().contains('pièce') ||
-        s(tweet.text).toLowerCase().contains('game') ||
-        s(tweet.text).toLowerCase().contains('gold') ||
-        s(tweet.text).toLowerCase().contains('coin') ||
-        s(tweet.text).toLowerCase().contains('download') ||
-        s(tweet.text).toLowerCase().contains('salope') ||
-        s(tweet.text).toLowerCase().contains('facebook') ||
-        s(tweet.text).toLowerCase().contains('retweet') ||
-        s(tweet.text).toLowerCase().contains('€') ||
-        s(tweet.text).toLowerCase().contains('fuck') ||
-        s(tweet.text).toLowerCase().contains('salopard') ||
-        s(tweet.text).toLowerCase().contains('buy') ||
-        s(tweet.text).toLowerCase().contains('emoji') ||
-        s(tweet.text).toLowerCase().contains('$') ||
-        s(tweet.text).toLowerCase().contains('shopping') ||
-        s(tweet.text).toLowerCase().contains('jailbreak') ||
-        s(tweet.text).toLowerCase().contains('amazon') ||
-        s(tweet.text).toLowerCase().contains('nipple'))) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    var txt = fs.readFileSync('safeword.txt', 'utf8');
+    var tab = txt.split('\r\n').map(function (val) {
+        return val;
+    });
+    var isNotSafe = false;
+
+    tab.forEach(function(item){
+        if (s(item).toLowerCase().contains(s(tweet.text).toLowerCase()))
+            isNotSafe = true;
+    });
+    return isNotSafe;
 }
 
 function likeTweets(tweet) {
@@ -112,7 +69,7 @@ function likeTweets(tweet) {
             retweetable = false;
         }
     }
-};
+}
 
 function retweet(tweet) {
     if (s(tweet.text).toLowerCase().contains('#windows') ||
@@ -148,8 +105,7 @@ function retweet(tweet) {
             });
         }
     }
-};
-
+}
 function like_enable() {
     likable = true;
 }
