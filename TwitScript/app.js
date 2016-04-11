@@ -18,8 +18,20 @@ var minutes_like = 3;
 var minutes_retweet = 180;
 var likable = true;
 var retweetable = true;
-var track = fs.readFileSync('trackwords.txt', 'utf8');
-track = s(track).replaceAll('\r\n', ' ').s;
+var trackWords = fs.readFileSync('trackwords.txt', 'utf8');
+var tracker = fs.readFileSync('trackaccount.txt', 'utf8');
+var trackAccount = "";
+
+// Get values files
+trackWords = s(trackWords).replaceAll('\r\n', ' ').s;
+tracker.split('\r\n').map(function (val) {
+    var value = val.split('+').map(function (val2) {
+        if (!s(val2).contains('\''))
+            return val2;
+    });
+    trackAccount = trackAccount + value[0] + ', ';
+    return val;
+});
 
 // Functions
 function containSafeWord(tweet) {
@@ -30,7 +42,7 @@ function containSafeWord(tweet) {
     var isNotSafe = false;
 
     tab.forEach(function(item){
-        if (s(item).toLowerCase().contains(s(tweet.text).toLowerCase()))
+        if (s(tweet.text).toLowerCase().contains(s(item).toLowerCase()))
             isNotSafe = true;
     });
     return isNotSafe;
@@ -44,7 +56,7 @@ function containTrackWord(tweet) {
     var isTrack = false;
 
     tab.forEach(function(item){
-        if (s(item).toLowerCase().contains(s(tweet.text).toLowerCase()))
+        if (s(tweet.text).toLowerCase().contains(s(item).toLowerCase()))
             isTrack = true;
     });
     return isTrack;
@@ -116,22 +128,9 @@ function retweet_enable() {
 //
 // Make id here : http://gettwitterid.com/
 client.stream('statuses/filter', {
-    follow: '563290517,' + // Antony Canut
-    ' 159495647, ' + // Jonathan Antoine
-    '21224422, ' + // TheVerge
-    '299659914,' + // Xamarin
-    '2750084700,' + // XamarinUniversity
-    '314451829, ' + // Cyril Cathala
-    '108743439, ' + // Rudy Huyn
-    '186907331,' + // Francois Raminosona
-    '92143356,' + // Etienne Margraff
-    '97252444, ' + // David Catuhe
-    '15056288,' + // David Poulin
-    '16837338, ' + // Julien Corioland
-    '300680960, ' + // Infinite Square
-    '543524058,' + // Soat Group
-    '74286565' // Microsoft
+    follow: trackAccount
 }, function (stream) {
+    console.log('Démarrage du stream sur Personnes.');
     stream.on('data', function (tweet) {
         retweet(tweet);
     });
@@ -143,9 +142,10 @@ client.stream('statuses/filter', {
 
 // Like and retweet by popular word
 client.stream('statuses/filter', {
-    track: track,
+    track: trackWords,
     language: 'en, fr'
 }, function (stream) {
+    console.log('Démarrage du stream sur Trackwords.');
     stream.on('data', function (tweet) {
         likeTweets(tweet);
     });

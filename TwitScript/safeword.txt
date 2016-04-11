@@ -32,6 +32,9 @@ encule
 piece
 pièce
 game
+taylor
+gained
+ebay
 gold
 coin
 download
