@@ -19,7 +19,7 @@ var minutes_retweet = 180;
 var likable = true;
 var retweetable = true;
 var trackWords = fs.readFileSync('trackwords.txt', 'utf8');
-var tracker = fs.readFileSync('trackaccount.txt', 'utf8');
+var tracker = fs.readFileSync('trackaccounts.txt', 'utf8');
 var trackAccount = "";
 
 // Get values files
@@ -35,7 +35,7 @@ tracker.split('\r\n').map(function (val) {
 
 // Functions
 function containSafeWord(tweet) {
-    var txt = fs.readFileSync('safeword.txt', 'utf8');
+    var txt = fs.readFileSync('safewords.txt', 'utf8');
     var tab = txt.split('\r\n').map(function (val) {
         return val;
     });
