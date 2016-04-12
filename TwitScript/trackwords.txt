@@ -6,7 +6,6 @@
 #csharp,
 #reactjs,
 #microsoft,
-#google,
 #apple,
 #java,
 #cordova,

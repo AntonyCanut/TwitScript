@@ -24,6 +24,8 @@ var trackAccount = "";
 
 // Get values files
 trackWords = s(trackWords).replaceAll('\r\n', ' ').s;
+trackWords = s(trackWords).replaceAll('\n', ' ').s;
+trackWords = s(trackWords).replaceAll('\r', ' ').s;
 tracker.split('\r\n').map(function (val) {
     var value = val.split('+').map(function (val2) {
         if (!s(val2).contains('\''))
@@ -36,9 +38,20 @@ tracker.split('\r\n').map(function (val) {
 // Functions
 function containSafeWord(tweet) {
     var txt = fs.readFileSync('safewords.txt', 'utf8');
-    var tab = txt.split('\r\n').map(function (val) {
-        return val;
-    });
+    if (s(txt).contains('\r\n')) {
+        var tab = txt.split('\r\n').map(function (val) {
+            return val;
+        });
+    } else if (s(txt).contains('\n')) {
+        var tab = txt.split('\n').map(function (val) {
+            return val;
+        });
+    } else {
+        var tab = txt.split('\r').map(function (val) {
+            return val;
+        });
+    }
+
     var isNotSafe = false;
 
     tab.forEach(function(item){
