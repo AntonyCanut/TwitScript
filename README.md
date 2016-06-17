@@ -16,7 +16,7 @@ You can changed id for retweet users. **trackaccounts.txt**
 
 Find twitter id here : http://gettwitterid.com/
 
-Now you can get more followers and retweet when you sleep.
+Now you can make your competitive intelligence
 
 Have fun !
 
