@@ -6,10 +6,10 @@ var fs = require('fs');
 
 // new Object Twitter with login-user
 var client = new Twitter({
-    consumer_key: 'qX57JAguhF1OFpAWJrov4zOC6',
-    consumer_secret: 'jF986liei6NKpetBEx4peFG1G6HrzLJCtgpgGZqDuIsBBxzySa',
-    access_token_key: '563290517-MYuwWaQVzkqnnPotXu8s4iOi1bzPOGP6003leNHg',
-    access_token_secret: '9J4yEklxDHZtrMiIgM8Tm2IlDec3gq2DreuTgYKGxn751'
+    consumer_key: '',
+    consumer_secret: '',
+    access_token_key: '',
+    access_token_secret: ''
 });
 
 
