@@ -152,5 +152,6 @@ client.stream('statuses/filter', {
     });
 });
 
-// Timer for Retweet
+// Timer for Retweet and like
+setInterval(like_enable, minutes_like * 60000);
 setInterval(retweet_enable, minutes_retweet * 60000);

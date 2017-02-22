@@ -1,7 +1,5 @@
 #windows,
 #xamarin,
-#android,
-#iphone,
 #ios,
 #csharp,
 #reactjs,
